@@ -1,14 +1,11 @@
-
-import Routes from "./routes/RouteProvider.jsx"
+import Routes from "./routes/RouteProvider.jsx";
 
 function App() {
-
   return (
-  <>
-    {/* <div className="bg-red-500 underline">Hello</div> */}
-    <Routes />
-  </>
-  )
+    <>
+      <Routes />
+    </>
+  );
 }
 
-export default App
+export default App;

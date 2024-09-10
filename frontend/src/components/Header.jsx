@@ -23,10 +23,12 @@ import InfoIcon from "@mui/icons-material/Info";
 import SearchIcon from "@mui/icons-material/Search";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import CloseIcon from "@mui/icons-material/Close";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 function Header() {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [isSignUp, setIsSignUp] = useState(false);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -34,10 +36,20 @@ function Header() {
 
   const handleLoginClick = (event) => {
     setAnchorEl(event.currentTarget);
+    setIsSignUp(false);
   };
 
   const handleLoginClose = () => {
     setAnchorEl(null);
+    setIsSignUp(false);
+  };
+
+  const handleSignUpClick = () => {
+    setIsSignUp(true);
+  };
+
+  const handleBackToLogin = () => {
+    setIsSignUp(false);
   };
 
   const open = Boolean(anchorEl);
@@ -58,6 +70,110 @@ function Header() {
     "Photo Products",
     "Design Services",
   ];
+
+  const LoginForm = () => (
+    <Box className="p-6 w-80">
+      <Box className="flex justify-between items-center mb-4">
+        <Typography variant="h6" className="font-semibold">
+          Login
+        </Typography>
+        <IconButton onClick={handleLoginClose} size="small">
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </Box>
+      <TextField
+        label="Email"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        size="small"
+      />
+      <TextField
+        label="Password"
+        type="password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        size="small"
+      />
+      <Link href="#" className="text-sm text-blue-600 hover:underline">
+        Forgot your password?
+      </Link>
+      <Button
+        variant="contained"
+        fullWidth
+        className="mt-4 bg-blue-600 hover:bg-blue-700 !mb-2"
+      >
+        Login
+      </Button>
+      <Divider className="my-4" />
+      <Button
+        variant="outlined"
+        fullWidth
+        className="border-blue-500 text-blue-600 hover:bg-blue-50"
+        onClick={handleSignUpClick}
+      >
+        Create New Account
+      </Button>
+    </Box>
+  );
+
+  const SignUpForm = () => (
+    <Box className="p-6 w-80">
+      <Box className="flex justify-between items-center mb-4">
+        <Typography variant="h6" className="font-semibold">
+          Sign Up
+        </Typography>
+        <IconButton onClick={handleLoginClose} size="small">
+          <CloseIcon fontSize="small" />
+        </IconButton>
+      </Box>
+      <TextField
+        label="First Name"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        size="small"
+      />
+      <TextField
+        label="Last Name"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        size="small"
+      />
+      <TextField
+        label="Email"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        size="small"
+      />
+      <TextField
+        label="Password"
+        type="password"
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        size="small"
+      />
+      <Button
+        variant="contained"
+        fullWidth
+        className="mt-4 bg-blue-600 hover:bg-blue-700 !mb-2"
+      >
+        Sign Up
+      </Button>
+      <Button
+        startIcon={<ArrowBackIcon />}
+        fullWidth
+        className="mt-2 text-blue-600 hover:bg-blue-50"
+        onClick={handleBackToLogin}
+      >
+        Back to Login
+      </Button>
+    </Box>
+  );
 
   return (
     <AppBar position="sticky" color="default" elevation={0}>
@@ -153,49 +269,7 @@ function Header() {
               horizontal: "right",
             }}
           >
-            <Box className="p-6 w-80">
-              <Box className="flex justify-between items-center mb-4">
-                <Typography variant="h6" className="font-semibold">
-                  Login
-                </Typography>
-                <IconButton onClick={handleLoginClose} size="small">
-                  <CloseIcon fontSize="small" />
-                </IconButton>
-              </Box>
-              <TextField
-                label="Email"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                size="small"
-              />
-              <TextField
-                label="Password"
-                type="password"
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                size="small"
-              />
-              <Link href="#" className="text-sm text-blue-600 hover:underline">
-                Forgot your password?
-              </Link>
-              <Button
-                variant="contained"
-                fullWidth
-                className="mt-4 bg-blue-600 hover:bg-blue-700 !mb-2"
-              >
-                Login
-              </Button>
-              <Divider className="my-4" />
-              <Button
-                variant="outlined"
-                fullWidth
-                className="border-blue-500 text-blue-600 hover:bg-blue-50 "
-              >
-                Create New Account
-              </Button>
-            </Box>
+            {isSignUp ? <SignUpForm /> : <LoginForm />}
           </Popover>
           <Button
             startIcon={<ShoppingCartIcon />}
